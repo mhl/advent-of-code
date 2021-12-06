@@ -2,9 +2,9 @@
 
 from collections import Counter
 
-with open('input-jenny.txt') as f:
-    today_population = tuple(int(n) for n in f.read().split(","))
-    today_counter = Counter(today_population)
+with open("input-jenny.txt") as f:
+    initial_population = tuple(int(n) for n in f.read().split(","))
+
 
 def get_next_day_counter(today_counter):
     next_day_counter = Counter()
@@ -18,10 +18,12 @@ def get_next_day_counter(today_counter):
     return next_day_counter
 
 
-for day in range(1, 81):
+today_counter = Counter(initial_population)
+for day in range(80):
     today_counter = get_next_day_counter(today_counter)
-    print(sum(today_counter.values()))
+print(sum(today_counter.values()))
 
-for day in range(1, 257):
+today_counter = Counter(initial_population)
+for day in range(256):
     today_counter = get_next_day_counter(today_counter)
-    print(sum(today_counter.values()))
+print(sum(today_counter.values()))
