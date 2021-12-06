@@ -10,6 +10,7 @@ FIND_COMMONEST = 1
 with open("input.txt") as f:
     input_strings = [line.strip() for line in f]
 
+
 def summarize_column(letters, strategy):
     counter = Counter(letters)
     assert len(counter) == 2
@@ -21,6 +22,7 @@ def summarize_column(letters, strategy):
     # there are only two digits in the counter
     return counter.most_common()[1 - strategy][0]
 
+
 def process_rows(rows, digits_so_far, strategy):
     if len(rows) == 1:
         return digits_so_far + rows[0]
@@ -28,6 +30,7 @@ def process_rows(rows, digits_so_far, strategy):
     digit_to_keep = summarize_column(first_column, strategy)
     new_rows = [r[1:] for r in rows if r[0] == digit_to_keep]
     return process_rows(new_rows, digits_so_far + digit_to_keep, strategy)
+
 
 oxygen_generator_reading, co2_scrubber_rating = (
     int(process_rows(input_strings, "", strategy), 2)

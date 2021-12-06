@@ -24,7 +24,9 @@ class Board(object):
 
     def check_if_won(self, calls_so_far_set):
         row_complete = any(all(n in calls_so_far_set for n in row) for row in self.rows)
-        col_complete = any(all(n in calls_so_far_set for n in col) for col in self.columns)
+        col_complete = any(
+            all(n in calls_so_far_set for n in col) for col in self.columns
+        )
         return row_complete or col_complete
 
     def score(self, calls_so_far):
