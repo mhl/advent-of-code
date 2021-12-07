@@ -6,8 +6,10 @@ with open("input-jenny.txt") as f:
 min_position = min(positions)
 max_position = max(positions)
 
+
 def fuel_to_move_to_position(aligning_position, starting_positions):
     return sum(abs(p - aligning_position) for p in starting_positions)
+
 
 best_fuel_cost_so_far = None
 best_position_so_far = None
