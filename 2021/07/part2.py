@@ -4,13 +4,10 @@ with open("input-jenny.txt") as f:
     positions = [int(p) for p in f.read().split(",")]
 
 
-def triangular_number(n):
-    return (n * (n + 1)) // 2
-
-
 def fuel_to_move_to_position(aligning_position, starting_positions):
     return sum(
-        triangular_number(abs(p - aligning_position)) for p in starting_positions
+        (abs(p - aligning_position) * (abs(p - aligning_position) + 1)) // 2
+        for p in starting_positions
     )
 
 
