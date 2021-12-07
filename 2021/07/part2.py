@@ -6,9 +6,12 @@ with open("input-jenny.txt") as f:
 min_position = min(positions)
 max_position = max(positions)
 
+def triangular_number(n):
+    return (n * (n + 1)) // 2
+
 def fuel_to_move_to_position(aligning_position, starting_positions):
     return sum(
-        (abs(p - aligning_position) * (abs(p - aligning_position) + 1)) // 2
+        triangular_number(abs(p - aligning_position))
         for p in starting_positions
     )
 
