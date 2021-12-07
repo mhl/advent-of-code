@@ -12,11 +12,9 @@ def fuel_to_move_to_position(aligning_position, starting_positions):
 
 
 best_fuel_cost_so_far = None
-best_position_so_far = None
 for p in range(min_position, max_position + 1):
     fuel_cost = fuel_to_move_to_position(p, positions)
     if best_fuel_cost_so_far is None or fuel_cost < best_fuel_cost_so_far:
         best_fuel_cost_so_far = fuel_cost
-        best_position_so_far = p
 
 print(best_fuel_cost_so_far)
