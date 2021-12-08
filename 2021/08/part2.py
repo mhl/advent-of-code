@@ -46,8 +46,8 @@ def brute_force_entry(entry):
                 break
         if correct_mapping:
             break
-    # Now we've got the mapping, use it to translate the 4 output displays
-    # into the correct 4 digit number
+    # Now we've got the mapping, reverse it and use it to translate the
+    # 4 output displays into the correct 4 digit number
     mapping_wrong_to_correct = {v: k for k, v in mapping_correct_to_wrong.items()}
     correct_output_numbers = [
         SEGMENTS_CORRECT["".join(sorted([mapping_wrong_to_correct[l] for l in output_wrong]))]
