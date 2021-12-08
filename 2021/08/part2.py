@@ -34,8 +34,7 @@ def displays_from_mapping(mapping_correct_to_wrong):
 
 def brute_force_entry(entry):
     # Sort each of the strings alphabetically to normalize them for lookup
-    displays = ("".join(sorted(d)) for d in entry[:10])
-    displays_set = set(displays)
+    displays_set = set("".join(sorted(d)) for d in entry[:10])
     for letters_permutation in permutations('abcdefg'):
         mapping_correct_to_wrong = {
             correct: wrong for correct, wrong in zip('abcdefg', letters_permutation)
