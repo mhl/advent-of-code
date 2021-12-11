@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 
-with open("input-jenny.txt") as f:
-    grid = [[int(digit) for digit in line.rstrip()] for line in f]
+def get_original_grid():
+    with open("input-jenny.txt") as f:
+        return [[int(digit) for digit in line.rstrip()] for line in f]
+
+grid = get_original_grid()
 
 width = len(grid[0])
 height = len(grid)
@@ -66,8 +69,7 @@ def step():
 
 print(sum(step() for _ in range(100)))
 
-with open("input-jenny.txt") as f:
-    grid = [[int(digit) for digit in line.rstrip()] for line in f]
+grid = get_original_grid()
 
 step_count = 0
 while True:
