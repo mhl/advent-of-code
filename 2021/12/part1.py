@@ -14,7 +14,6 @@ with open("input.txt") as f:
 
 
 def find_all_paths_to_end(current_cave, path_so_far):
-    depth_so_far = len(path_so_far)
     if current_cave == "end":
         return [path_so_far + [current_cave]]
     if current_cave.islower() and (current_cave in path_so_far):
