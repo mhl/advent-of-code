@@ -34,15 +34,11 @@ def do_fold(points, fold):
         new_points.add(tuple(new_point_list))
     return new_points
 
-
-points_after_one_fold = do_fold(points_set, folds[0])
-print(len(points_after_one_fold))
-
 on_first_fold = True
 for fold in folds:
     points_set = do_fold(points_set, fold)
     if on_first_fold:
-        print(len(points_after_one_fold))
+        print(len(points_set))
         on_first_fold = False
 
 width = 1 + max(x for x, _ in points_set)
