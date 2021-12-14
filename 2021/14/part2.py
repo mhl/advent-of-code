@@ -14,9 +14,10 @@ for line in rules_string.rstrip().split("\n"):
     new_pair_2 = insert_char + pair[1]
     rules[pair] = (new_pair_1, new_pair_2)
 
-initial_pairs = [''.join(p) for p in zip(template[:-1], template[1:])]
+initial_pairs = ["".join(p) for p in zip(template[:-1], template[1:])]
 
 pair_counter = Counter(initial_pairs)
+
 
 def step(pair_counter):
     new_counter = Counter()
@@ -25,6 +26,7 @@ def step(pair_counter):
         new_counter[new_pair_1] += count
         new_counter[new_pair_2] += count
     return new_counter
+
 
 for i in range(40):
     pair_counter = step(pair_counter)
@@ -38,4 +40,4 @@ letter_counter[template[0]] += 1
 letter_counter[template[-1]] += 1
 
 ordered_counts = letter_counter.most_common()
-print(ordered_counts[0][1]//2 - ordered_counts[-1][1]//2)
+print(ordered_counts[0][1] // 2 - ordered_counts[-1][1] // 2)

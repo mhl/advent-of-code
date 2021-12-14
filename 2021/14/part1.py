@@ -12,16 +12,18 @@ for line in rules_string.rstrip().split("\n"):
     pair, insert_char = line.split(" -> ")
     rules[pair] = insert_char
 
+
 def step(polymer_elements):
     new_polymer_elements = []
     for i in range(len(polymer_elements) - 1):
-        current_element, next_element = polymer_elements[i:i+2]
+        current_element, next_element = polymer_elements[i : i + 2]
         new_polymer_elements.append(current_element)
         pair = current_element + next_element
         if pair in rules:
             new_polymer_elements.append(rules[pair])
     new_polymer_elements.append(polymer_elements[-1])
     return new_polymer_elements
+
 
 polymer_elements = list(template)
 for i in range(10):
