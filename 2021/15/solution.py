@@ -5,10 +5,11 @@ from heapq import heappush, heappop
 with open("input-jenny.txt") as f:
     original_grid = [[int(digit) for digit in line.rstrip()] for line in f]
 
+
 def generate_giant_grid(original_grid):
     width = len(original_grid[0])
     height = len(original_grid)
-    giant_grid = [[None]*width*5 for _ in range(height*5)]
+    giant_grid = [[None] * width * 5 for _ in range(height * 5)]
     for i in range(5):
         for j in range(5):
             increase = i + j
@@ -21,7 +22,9 @@ def generate_giant_grid(original_grid):
                     giant_grid[y + j * height][x + i * width] = new_value
     return giant_grid
 
+
 giant_grid = generate_giant_grid(original_grid)
+
 
 def find_cost_of_shortest_path(grid):
     # This is an implementation of Dijkstra's algorithm based on
@@ -41,7 +44,7 @@ def find_cost_of_shortest_path(grid):
             if 0 <= i < width and 0 <= j < height
         )
 
-    start = (0,0)
+    start = (0, 0)
     target = (width - 1, height - 1)
 
     large_sentinel = 1000000
@@ -87,6 +90,7 @@ def find_cost_of_shortest_path(grid):
             path_reversed.append(path_coord)
 
     return sum(grid[y][x] for x, y in reversed(path_reversed))
+
 
 print(find_cost_of_shortest_path(original_grid))
 print(find_cost_of_shortest_path(giant_grid))
