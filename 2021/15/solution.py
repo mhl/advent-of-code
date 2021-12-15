@@ -81,13 +81,13 @@ def find_cost_of_shortest_path(grid):
                 prev[adjacent_coord] = u
                 heappush(queue, (alternative_distance, adjacent_coord))
 
+    path_reversed = []
     path_coord = target
-    path_reversed = [path_coord]
-
-    while path_coord != start:
+    while True:
+        path_reversed.append(path_coord)
         path_coord = prev[path_coord]
-        if path_coord != start:
-            path_reversed.append(path_coord)
+        if path_coord == start:
+            break
 
     return sum(grid[y][x] for x, y in reversed(path_reversed))
 
