@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 
 from dataclasses import dataclass
+from math import prod
+from types import SimpleNamespace
 
 with open("input.txt") as f:
     hex_string = f.readline().rstrip()
@@ -15,6 +17,15 @@ input_string = [
 def binary_digits_to_int(binary_digits):
     return int("".join(binary_digits), 2)
 
+types = SimpleNamespace()
+types.SUM = 0
+types.PRODUCT = 1
+types.MIN = 2
+types.MAX = 3
+types.LITERAL = 4
+types.GREATER_THAN = 5
+types.LESS_THAN = 6
+types.EQUAL_TO = 7
 
 @dataclass
 class LiteralPacket:
@@ -22,12 +33,34 @@ class LiteralPacket:
     type_id: int
     value: int
 
+    def evaluate(self):
+        return self.value
 
 @dataclass
 class OperatorPacket:
     version: int
     type_id: int
     subpackets: list
+
+    def evaluate(self):
+        subpacket_values = [p.evaluate() for p in self.subpackets]
+        match self.type_id:
+            case types.SUM:
+                return sum(subpacket_values)
+            case types.PRODUCT:
+                return prod(subpacket_values)
+            case types.MIN:
+                return min(subpacket_values)
+            case types.MAX:
+                return max(subpacket_values)
+            case types.GREATER_THAN:
+                return int(subpacket_values[0] > subpacket_values[1])
+            case types.LESS_THAN:
+                return int(subpacket_values[0] < subpacket_values[1])
+            case types.EQUAL_TO:
+                return int(subpacket_values[0] == subpacket_values[1])
+            case _:
+                raise Exception(f"Unknown operator type ID {self.type_id}")
 
 
 def parse_literal_packet_payload(input_string, start_index, version, type_id):
@@ -80,7 +113,7 @@ def parse_operator_packet_payload(input_string, start_index, version, type_id):
 def parse_packet(input_string, start_index):
     version = binary_digits_to_int(input_string[start_index : start_index + 3])
     type_id = binary_digits_to_int(input_string[start_index + 3 : start_index + 6])
-    if type_id == 4:
+    if type_id == types.LITERAL:
         return parse_literal_packet_payload(
             input_string, start_index + 6, version, type_id
         )
@@ -94,7 +127,7 @@ parsed_tree, after_end_index = parse_packet(input_string, 0)
 
 
 def find_sum_of_version_numbers(packet):
-    if packet.type_id == 4:  # i.e. a LiteralPacket, a leaf node
+    if packet.type_id == types.LITERAL:
         return packet.version
     else:
         return packet.version + sum(
@@ -102,4 +135,7 @@ def find_sum_of_version_numbers(packet):
         )
 
 
+
+
 print(find_sum_of_version_numbers(parsed_tree))
+print(parsed_tree.evaluate())
