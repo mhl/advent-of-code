@@ -14,8 +14,9 @@ input_string = [
 ]
 
 
-def binary_digits_to_int(binary_digits):
+def to_int(binary_digits):
     return int("".join(binary_digits), 2)
+
 
 types = SimpleNamespace()
 types.SUM = 0
@@ -27,6 +28,7 @@ types.GREATER_THAN = 5
 types.LESS_THAN = 6
 types.EQUAL_TO = 7
 
+
 @dataclass
 class LiteralPacket:
     version: int
@@ -35,6 +37,7 @@ class LiteralPacket:
 
     def evaluate(self):
         return self.value
+
 
 @dataclass
 class OperatorPacket:
@@ -72,23 +75,19 @@ def parse_literal_packet_payload(input_string, start_index, version, type_id):
         if input_string[payload_index] == "0":
             break
         payload_index += 5
-    value = binary_digits_to_int(binary_digits)
+    value = to_int(binary_digits)
     return LiteralPacket(version, type_id, value), payload_index + 5
 
 
 def parse_operator_packet_payload(input_string, start_index, version, type_id):
-    length_type_id = binary_digits_to_int(input_string[start_index : start_index + 1])
+    length_type_id = to_int(input_string[start_index : start_index + 1])
     subpackets_bit_length = None
     number_of_subpackets = None
     if length_type_id == 0:
-        subpackets_bit_length = binary_digits_to_int(
-            input_string[start_index + 1 : start_index + 16]
-        )
+        subpackets_bit_length = to_int(input_string[start_index + 1 : start_index + 16])
         subpackets_start_index = start_index + 16
     else:
-        number_of_subpackets = binary_digits_to_int(
-            input_string[start_index + 1 : start_index + 12]
-        )
+        number_of_subpackets = to_int(input_string[start_index + 1 : start_index + 12])
         subpackets_start_index = start_index + 12
     all_subpackets = []
     current_subpacket_start_index = subpackets_start_index
@@ -99,20 +98,16 @@ def parse_operator_packet_payload(input_string, start_index, version, type_id):
         all_subpackets.append(subpacket)
         current_subpacket_start_index = index_after_subpacket
         subpacket_bits_parsed = index_after_subpacket - subpackets_start_index
-        if subpackets_bit_length is not None and (
-            subpacket_bits_parsed >= subpackets_bit_length
-        ):
+        if subpackets_bit_length and (subpacket_bits_parsed >= subpackets_bit_length):
             break
-        if number_of_subpackets is not None and (
-            len(all_subpackets) == number_of_subpackets
-        ):
+        if number_of_subpackets and (len(all_subpackets) == number_of_subpackets):
             break
     return OperatorPacket(version, type_id, all_subpackets), index_after_subpacket
 
 
 def parse_packet(input_string, start_index):
-    version = binary_digits_to_int(input_string[start_index : start_index + 3])
-    type_id = binary_digits_to_int(input_string[start_index + 3 : start_index + 6])
+    version = to_int(input_string[start_index : start_index + 3])
+    type_id = to_int(input_string[start_index + 3 : start_index + 6])
     if type_id == types.LITERAL:
         return parse_literal_packet_payload(
             input_string, start_index + 6, version, type_id
@@ -133,8 +128,6 @@ def find_sum_of_version_numbers(packet):
         return packet.version + sum(
             find_sum_of_version_numbers(p) for p in packet.subpackets
         )
-
-
 
 
 print(find_sum_of_version_numbers(parsed_tree))
