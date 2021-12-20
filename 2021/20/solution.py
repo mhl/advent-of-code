@@ -39,7 +39,7 @@ class InfiniteImage:
                     kernel_values.append(self.background_value)
         return kernel_values
 
-    def enhance(self):
+    def enhance(self, algorithm):
         original_width = len(self.grid[0])
         original_height = len(self.grid)
         new_grid = [[None] * (original_width + 2) for _ in range(original_height + 2)]
@@ -65,12 +65,12 @@ with open("input.txt") as f:
 # Part 1:
 image = InfiniteImage(DARK, grid)
 for i in range(2):
-    image = image.enhance()
+    image = image.enhance(algorithm)
 print(image.count_light())
 
 # Part 2:
 image = InfiniteImage(DARK, grid)
 for i in range(50):
-    image = image.enhance()
+    image = image.enhance(algorithm)
 print(str(image))
 print(image.count_light())
