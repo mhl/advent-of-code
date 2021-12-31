@@ -150,12 +150,11 @@ def get_push_pop_pairs():
 
 
 # To explain this a little, we want input digits such that each
-# section that does a pop doesn't push as well, which we do by making
-# the (x + section.x_inc) != w condition false. A key point is that
-# the value which is pushed onto the stack at each point only depends
-# on y_inc for that section and w (the input digit). This means that
-# at the point where you pop, you know that the value you got off the
-# stack was the value added by the corresponding push earlier.
+# section that does a pop doesn't do a push as well, which we do by
+# making the (x + section.x_inc) != w condition false. A key point is
+# that the value which is pushed onto the stack at each point can't be
+# modified, so you know it'll be the same value being popped off the
+# stack at the corresponding pop later.
 
 # So now we can say when pushing:
 #    value_put_on_stack = i_push + push_section.y_inc
@@ -166,7 +165,7 @@ def get_push_pop_pairs():
 #    i_pop = i_push + push_section.y_inc + pop_section.x_inc
 #
 # So now we can find the maximum digits for each pair of digits quite
-# simply.
+# simply and independent of each other pair.
 
 # Part 1 - find the maximum value that produces 0
 
