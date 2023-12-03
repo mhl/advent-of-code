@@ -10,7 +10,7 @@ function calculate_points(number_of_matches: number) {
 async function main() {
     const data = await fs.readFile("input-jenny.txt", { encoding: "utf-8" });
     const lines = data.split("\n");
-    let total_points = 0
+    let total_points = 0;
     for (const line of lines) {
         if (!line.length) {
             continue;
@@ -19,7 +19,7 @@ async function main() {
         const winning_numbers = numbers[0].split(/\s+/).map(Number);
         const numbers_we_have = numbers[1].split(/\s+/).map(Number);
         const matches = numbers_we_have.filter(
-            n => winning_numbers.indexOf(n) >= 0
+            (n) => winning_numbers.indexOf(n) >= 0,
         );
         const number_of_matches = matches.length;
         total_points += calculate_points(number_of_matches);
