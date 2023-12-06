@@ -12,6 +12,9 @@ export async function getInputLines(year: number, day: number): Promise<string[]
         }
         const url = `https://adventofcode.com/${year}/day/${day}/input`;
         const response = await fetch(url, { headers: { 'Cookie': `session=${session_cookie}` }});
+        if (response.status !== 200) {
+            throw new Error(`Failed to fetch the input; HTTP status code ${response.status}`);
+        }
         const text = await response.text();
         await fs.writeFile(local_copy_path, text);
         return text.split("\n");
