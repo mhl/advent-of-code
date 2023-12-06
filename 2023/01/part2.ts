@@ -1,4 +1,4 @@
-import { promises as fs } from "fs";
+import { getInputLines } from "../aoc";
 
 function convertToDigitString(matched_string: string) {
     if (/^\d$/.test(matched_string)) {
@@ -27,9 +27,9 @@ const first_match_re = new RegExp(`^.*?(${DIGITS_RE})`);
 const last_match_re = new RegExp(`^.*(${DIGITS_RE})`);
 
 async function main() {
-    const data = await fs.readFile("input-mark.txt", { encoding: "utf-8" });
+    const lines = await getInputLines(2023, 1);
     let total = 0;
-    for (let line of data.split("\n")) {
+    for (let line of lines) {
         const first_match = line.match(first_match_re);
         if (!first_match) continue;
         const last_match = line.match(last_match_re);

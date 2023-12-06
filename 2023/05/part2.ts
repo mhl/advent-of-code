@@ -1,4 +1,4 @@
-import { promises as fs } from "fs";
+import { getInputLines } from "../aoc";
 
 type InclusiveRange = {
     start: number;
@@ -123,8 +123,7 @@ class AlmanacMap {
 }
 
 async function main() {
-    const data = await fs.readFile("input-mark.txt", { encoding: "utf-8" });
-    const lines = data.split("\n");
+    const lines = await getInputLines(2023, 5);
 
     const seeds = lines[0].split(" ").slice(1).map(Number);
 

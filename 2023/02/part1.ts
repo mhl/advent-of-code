@@ -1,4 +1,4 @@
-import { promises as fs } from "fs";
+import { getInputLines } from "../aoc";
 
 const VALID_BALL_COLOURS = ["red", "green", "blue"] as const;
 
@@ -29,8 +29,7 @@ function check_valid_subset(subset: string) {
 }
 
 async function main() {
-    const data = await fs.readFile("input-jenny.txt", { encoding: "utf-8" });
-    const lines = data.split("\n");
+    const lines = await getInputLines(2023, 2);
     let total = 0;
     for (let line of lines) {
         const match = line.match(/^Game (\d+): (.*)/);

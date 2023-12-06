@@ -1,8 +1,7 @@
-import { promises as fs } from "fs";
+import { getInputLines } from "../aoc";
 
 async function main() {
-    const data = await fs.readFile("part1-example", { encoding: "utf-8" });
-    const lines = data.split("\n");
+    const lines = await getInputLines(2023, 1);
     let total = 0;
     for (let line of lines) {
         const matches = Array.from(line.matchAll(/\d/g));

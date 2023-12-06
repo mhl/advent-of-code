@@ -1,4 +1,4 @@
-import { promises as fs } from "fs";
+import { getInputLines } from "../aoc";
 
 function calculate_points(number_of_matches: number) {
     if (number_of_matches === 0) {
@@ -8,8 +8,7 @@ function calculate_points(number_of_matches: number) {
 }
 
 async function main() {
-    const data = await fs.readFile("input-jenny.txt", { encoding: "utf-8" });
-    const lines = data.split("\n");
+    const lines = await getInputLines(2023, 4);
     let total_points = 0;
     for (const line of lines) {
         if (!line.length) {

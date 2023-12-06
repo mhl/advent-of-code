@@ -1,4 +1,4 @@
-import { promises as fs } from "fs";
+import { getInputLines } from "../aoc";
 
 class Card {
     readonly winning_numbers: number[];
@@ -28,8 +28,7 @@ class Card {
 }
 
 async function main() {
-    const data = await fs.readFile("input-jenny.txt", { encoding: "utf-8" });
-    const lines = data.split("\n");
+    const lines = await getInputLines(2023, 4)
 
     const all_cards = lines.filter((l) => l.length).map(Card.createFromLine);
     for (let i = 0; i < all_cards.length; i++) {

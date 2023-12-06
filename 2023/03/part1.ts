@@ -1,8 +1,7 @@
-import { promises as fs } from "fs";
+import { getInputLines } from "../aoc";
 
 async function main() {
-    const data = await fs.readFile("input-jenny.txt", { encoding: "utf-8" });
-    const lines = data.split("\n");
+    const lines = await getInputLines(2023, 3);
     const width = lines[0].length;
     const height = lines.length;
 
