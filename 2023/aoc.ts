@@ -20,3 +20,8 @@ export async function getInputLines(year: number, day: number): Promise<string[]
         return text.split("\n");
     }
 }
+
+export async function getExampleLines(): Promise<string[]> {
+    const data = await fs.readFile("example", { encoding: "utf-8" });
+    return data.split("\n");
+}
