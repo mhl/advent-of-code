@@ -1,10 +1,14 @@
 import { promises as fs, existsSync } from "fs";
 
 export async function getInputLines(year: number, day: number): Promise<string[]> {
+    const text = await getInputString(year, day);
+    return text.split("\n");
+}
+
+export async function getInputString(year: number, day: number): Promise<string> {
     const local_copy_path = "input.txt";
     if (existsSync(local_copy_path)) {
-        const text = await fs.readFile(local_copy_path, { encoding: "utf-8" });
-        return text.split("\n");
+        return fs.readFile(local_copy_path, { encoding: "utf-8" });
     } else {
         const session_cookie = process.env.AOC_SESSION_COOKIE;
         if (!session_cookie) {
@@ -17,7 +21,7 @@ export async function getInputLines(year: number, day: number): Promise<string[]
         }
         const text = await response.text();
         await fs.writeFile(local_copy_path, text);
-        return text.split("\n");
+        return text;
     }
 }
 
