@@ -89,4 +89,6 @@ async function main() {
     console.log({total_possible_solutions});
 }
 
-main();
+if (require.main === module) {
+    main();
+}
