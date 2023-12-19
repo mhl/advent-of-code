@@ -5,7 +5,11 @@ export function countSprings(s: string) {
     return matches.map((m) => m[0].length);
 }
 
-export function choose(all_indices: number[], r: number, depth: number = 0): number[][] {
+export function choose(
+    all_indices: number[],
+    r: number,
+    depth: number = 0,
+): number[][] {
     if (r > all_indices.length) {
         return []; // That means it's impossible
     }
@@ -28,7 +32,7 @@ type Constraints = {
     unknowns: number;
     springs_in_unknowns: number;
     unknown_indices: number[];
-}
+};
 
 function parseCounts(s: string): number[] {
     return s.split(",").map(Number);
@@ -41,7 +45,7 @@ function arraysEqual(a1: number[], a2: number[]): boolean {
 export function getConstraints(s: string): Constraints {
     const matches = Array.from(s.matchAll(/\?/g));
     const unknowns = matches.length;
-    const unknown_indices = matches.map(m => {
+    const unknown_indices = matches.map((m) => {
         if (m.index == null) throw new Error(`No index found on match ${m}`);
         return m.index;
     });
@@ -54,7 +58,7 @@ export function getConstraints(s: string): Constraints {
         0,
     );
     const springs_in_unknowns = total_springs - known_springs;
-    return {total_springs, unknowns, springs_in_unknowns, unknown_indices};
+    return { total_springs, unknowns, springs_in_unknowns, unknown_indices };
 }
 
 async function main() {
@@ -64,10 +68,13 @@ async function main() {
     let total_possible_solutions = 0;
     for (const line of lines) {
         const [springs, counts_string] = line.split(" ");
-        console.log({springs});
+        console.log({ springs });
         const constraints = getConstraints(line);
         let possible_solutions = 0;
-        for (const choice_indices of choose(constraints.unknown_indices, constraints.springs_in_unknowns)) {
+        for (const choice_indices of choose(
+            constraints.unknown_indices,
+            constraints.springs_in_unknowns,
+        )) {
             const new_characters = springs.split("");
             for (const index of choice_indices) {
                 new_characters[index] = "#";
@@ -79,14 +86,19 @@ async function main() {
             }
             const new_string = new_characters.join("");
             const sprint_counts_from_new_sprint = countSprings(new_string);
-            if (arraysEqual(sprint_counts_from_new_sprint, parseCounts(counts_string))) {
+            if (
+                arraysEqual(
+                    sprint_counts_from_new_sprint,
+                    parseCounts(counts_string),
+                )
+            ) {
                 possible_solutions++;
             }
         }
-        console.log({possible_solutions});
+        console.log({ possible_solutions });
         total_possible_solutions += possible_solutions;
     }
-    console.log({total_possible_solutions});
+    console.log({ total_possible_solutions });
 }
 
 if (require.main === module) {
