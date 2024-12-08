@@ -2,13 +2,15 @@
 
 import os
 import sys
+
 parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.append('..')
+sys.path.append("..")
 
 import aoc
 
 lines = aoc.get_input_lines(2024, 2)
 # lines = aoc.get_example_lines()
+
 
 def is_safe_already(levels):
     differences = [levels[i] - levels[i - 1] for i in range(1, len(levels))]
@@ -24,9 +26,11 @@ def is_safe_already(levels):
             return False
     return True
 
+
 def variants_with_one_removed(levels):
     for i in range(len(levels)):
-        yield levels[:i] + levels[i + 1:]
+        yield levels[:i] + levels[i + 1 :]
+
 
 def is_safe(levels):
     if is_safe_already(levels):
@@ -35,6 +39,7 @@ def is_safe(levels):
         if is_safe_already(variant):
             return True
     return False
+
 
 safe_lines_count = 0
 

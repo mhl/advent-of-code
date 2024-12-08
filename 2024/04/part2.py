@@ -3,8 +3,9 @@
 import os
 import re
 import sys
+
 parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.append('..')
+sys.path.append("..")
 
 import aoc
 
@@ -25,10 +26,12 @@ h = len(grid)
 start_letter = "A"
 word_to_find = "MAS"
 
+
 def safe_get(y, x):
     if x >= w or y >= h or x < 0 or y < 0:
         return ""
     return grid[y][x]
+
 
 def get_ne(start_x, start_y):
     return [
@@ -36,11 +39,13 @@ def get_ne(start_x, start_y):
         "".join([safe_get(start_y - i, start_x - i) for i in range(-1, 2)]),
     ]
 
+
 def get_nw(start_x, start_y):
     return [
         "".join([safe_get(start_y + i, start_x - i) for i in range(-1, 2)]),
         "".join([safe_get(start_y - i, start_x + i) for i in range(-1, 2)]),
     ]
+
 
 sum = 0
 

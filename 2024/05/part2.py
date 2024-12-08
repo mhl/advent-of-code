@@ -5,8 +5,9 @@ from graphlib import TopologicalSorter
 import os
 import re
 import sys
+
 parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.append('..')
+sys.path.append("..")
 
 import aoc
 
@@ -59,7 +60,9 @@ for update_line in update_lines:
         for n in update_page_numbers:
             only_after = must_precede.get(n)
             if only_after is not None:
-                print(f"   for {n}, only_after is: {only_after} and page numbers are: {update_page_numbers}")
+                print(
+                    f"   for {n}, only_after is: {only_after} and page numbers are: {update_page_numbers}"
+                )
                 intersection = only_after & set(update_page_numbers)
                 print("intersection is", intersection)
                 if len(intersection):
@@ -71,11 +74,8 @@ for update_line in update_lines:
 
         print("sorted_numbers is:", sorted_numbers)
 
-
-
         middle_number = sorted_numbers[len(sorted_numbers) // 2]
         sum += middle_number
-
 
 
 print(sum)

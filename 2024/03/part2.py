@@ -3,8 +3,9 @@
 import os
 import re
 import sys
+
 parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.append('..')
+sys.path.append("..")
 
 import aoc
 
@@ -17,7 +18,9 @@ enabled = True
 for line in lines:
     if not len(line):
         continue
-    for match in re.findall(r'(do)\(\)|(don\'t)\(\)|(mul)\((\d{1,3}),(\d{1,3})\)', line):
+    for match in re.findall(
+        r"(do)\(\)|(don\'t)\(\)|(mul)\((\d{1,3}),(\d{1,3})\)", line
+    ):
         if match[0] == "do":
             print("Enabling")
             enabled = True

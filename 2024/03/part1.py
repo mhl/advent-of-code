@@ -3,8 +3,9 @@
 import os
 import re
 import sys
+
 parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.append('..')
+sys.path.append("..")
 
 import aoc
 
@@ -15,7 +16,7 @@ sum = 0
 for line in lines:
     if not len(line):
         continue
-    for match in re.findall(r'mul\((\d{1,3}),(\d{1,3})\)', line):
+    for match in re.findall(r"mul\((\d{1,3}),(\d{1,3})\)", line):
         sum += int(match[0]) * int(match[1])
 
 print(sum)

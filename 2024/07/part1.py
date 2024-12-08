@@ -5,24 +5,27 @@ from functools import lru_cache
 import os
 import re
 import sys
+
 parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.append('..')
+sys.path.append("..")
 
 import aoc
 
 lines = aoc.get_input_lines(2024, 7)
 # lines = aoc.get_example_lines()
 
+
 @lru_cache
 def operator_combinations(n):
     result = []
     if n == 1:
         return [["+"], ["*"]]
-    for new_operator in ('+', '*'):
+    for new_operator in ("+", "*"):
         combinations_for_one_less = operator_combinations(n - 1)
         for c in combinations_for_one_less:
             result.append([new_operator] + c)
     return result
+
 
 def can_it_work(result, numbers):
     n_operators = len(numbers) - 1
@@ -31,13 +34,14 @@ def can_it_work(result, numbers):
         acc = numbers[0]
         for i in range(1, len(numbers)):
             operator = c[i - 1]
-            if operator == '*':
+            if operator == "*":
                 acc = acc * numbers[i]
-            elif operator == '+':
+            elif operator == "+":
                 acc = acc + numbers[i]
         if acc == result:
             return True
     return False
+
 
 sum = 0
 

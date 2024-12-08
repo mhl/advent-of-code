@@ -4,8 +4,9 @@ from collections import defaultdict
 import os
 import re
 import sys
+
 parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.append('..')
+sys.path.append("..")
 
 import aoc
 
@@ -38,7 +39,7 @@ for y in range(h):
     if start_x is not None:
         break
 
-print("Guard found at:", (x,  y))
+print("Guard found at:", (x, y))
 
 positions_covered = set()
 
@@ -47,17 +48,24 @@ y = start_y
 
 v = (0, -1)
 
+
 def get_new_position(old_x, old_y):
     global v
     candidate_new_x = old_x + v[0]
     candidate_new_y = old_y + v[1]
-    if candidate_new_x < 0 or candidate_new_x >= w or candidate_new_y < 0 or candidate_new_y >= h:
+    if (
+        candidate_new_x < 0
+        or candidate_new_x >= w
+        or candidate_new_y < 0
+        or candidate_new_y >= h
+    ):
         return (None, None)
     if grid[candidate_new_y][candidate_new_x] == "#":
         # v = (v[1], -v[0])
         v = (-v[1], v[0])
         return get_new_position(old_x, old_y)
     return (candidate_new_x, candidate_new_y)
+
 
 while x >= 0 and x < w and y >= 0 and y < h:
     positions_covered.add((x, y))

@@ -2,13 +2,15 @@
 
 import os
 import sys
+
 parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.append('..')
+sys.path.append("..")
 
 import aoc
 
 lines = aoc.get_input_lines(2024, 2)
 # lines = aoc.get_example_lines()
+
 
 def is_safe(levels):
     differences = [levels[i] - levels[i - 1] for i in range(1, len(levels))]
@@ -23,6 +25,7 @@ def is_safe(levels):
         if abs(difference) > 3:
             return False
     return True
+
 
 safe_lines_count = 0
 

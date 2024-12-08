@@ -3,8 +3,9 @@
 from collections import Counter
 import os
 import sys
+
 parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.append('..')
+sys.path.append("..")
 
 import aoc
 
@@ -29,4 +30,3 @@ for left in left_column:
     total += left * counter[left]
 
 print(total)
-

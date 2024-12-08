@@ -2,8 +2,9 @@
 
 import os
 import sys
+
 parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.append('..')
+sys.path.append("..")
 
 import aoc
 
@@ -32,5 +33,3 @@ for left, right in zipped:
     sum_of_differences += difference
 
 print(sum_of_differences)
-
-

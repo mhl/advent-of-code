@@ -5,13 +5,14 @@ from itertools import combinations
 import os
 import re
 import sys
+
 parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.append('..')
+sys.path.append("..")
 
 import aoc
 
 lines = aoc.get_input_lines(2024, 8)
-#lines = aoc.get_example_lines()
+# lines = aoc.get_example_lines()
 
 grid = []
 
@@ -36,8 +37,10 @@ for y in range(h):
 
 print(antenna_types)
 
+
 def in_bounds(a):
     return a[0] >= 0 and a[0] < w and a[1] >= 0 and a[1] < h
+
 
 def get_antinode_positions(a, b):
     x_diff = b[0] - a[0]
@@ -67,6 +70,7 @@ def get_antinode_positions(a, b):
             break
     return antinode_positions
 
+
 def get_pairs_of_type(antenna_type):
     antenna_coords = []
     for y in range(h):
@@ -74,6 +78,7 @@ def get_pairs_of_type(antenna_type):
             if grid[y][x] == antenna_type:
                 antenna_coords.append((x, y))
     return combinations(antenna_coords, 2)
+
 
 result_positions = set()
 
