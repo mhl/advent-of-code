@@ -19,18 +19,22 @@ line = lines[0]
 
 line_as_list = list(line)
 
+
 @dataclass(frozen=True)
 class Span:
     is_file: bool
     id_number: int
     length: int
+
     def __str__(self):
         if self.is_file:
             return "-".join(([str(self.id_number)] * self.length))
         else:
             return "." * self.length
+
     def empty(self):
         return self.length == 0
+
 
 spans = []
 
@@ -38,7 +42,7 @@ id_number = 0
 is_file = True
 for input_charater in line_as_list:
     if is_file:
-        spans.append(Span(is_file, 1*id_number, int(input_charater)))
+        spans.append(Span(is_file, 1 * id_number, int(input_charater)))
         id_number += 1
     else:
         spans.append(Span(is_file, None, int(input_charater)))
@@ -53,6 +57,7 @@ highest_id_number = id_number - 1
 
 # print_blocks()
 
+
 def split_span(i, length_of_outer_part, start_from_left):
     if i >= len(spans):
         raise Exception(f"BUG: i {i} of the end of spans (of length {len(spans)}")
@@ -62,20 +67,35 @@ def split_span(i, length_of_outer_part, start_from_left):
     if length_of_outer_part == original_span.length:
         return
     if start_from_left:
-        new_first_span = Span(original_span.is_file, original_span.id_number, length_of_outer_part)
-        new_second_span = Span(original_span.is_file, original_span.id_number, original_span.length - length_of_outer_part)
+        new_first_span = Span(
+            original_span.is_file, original_span.id_number, length_of_outer_part
+        )
+        new_second_span = Span(
+            original_span.is_file,
+            original_span.id_number,
+            original_span.length - length_of_outer_part,
+        )
     else:
-        new_first_span = Span(original_span.is_file, original_span.id_number, original_span.length - length_of_outer_part)
-        new_second_span = Span(original_span.is_file, original_span.id_number, length_of_outer_part)
-    spans[i:i+1] = (new_first_span, new_second_span)
+        new_first_span = Span(
+            original_span.is_file,
+            original_span.id_number,
+            original_span.length - length_of_outer_part,
+        )
+        new_second_span = Span(
+            original_span.is_file, original_span.id_number, length_of_outer_part
+        )
+    spans[i : i + 1] = (new_first_span, new_second_span)
+
 
 def swap(i, j):
     tmp = spans[i]
     spans[i] = spans[j]
     spans[j] = tmp
 
+
 leftmost_space_index = 1
 rightmost_file_index = len(spans) - 1
+
 
 def checksum():
     sum = 0
@@ -88,6 +108,7 @@ def checksum():
         else:
             i += span.length
     return sum
+
 
 id_number_to_move = highest_id_number
 

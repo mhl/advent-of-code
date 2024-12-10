@@ -13,7 +13,7 @@ sys.path.append("..")
 import aoc
 
 lines = aoc.get_input_lines(2024, 10)
-# lines = aoc.get_example_lines()
+# lines = aoc.get_example_lines()
 
 grid = []
 
@@ -27,13 +27,15 @@ h = len(grid)
 
 print(f"w {w} h {h}")
 
+
 def in_bounds(a):
     return a[0] >= 0 and a[0] < w and a[1] >= 0 and a[1] < h
 
+
 def get_neighbours(p):
     result = []
-    for offset_y in (- 1, 0, 1):
-        for offset_x in (- 1, 0, 1):
+    for offset_y in (-1, 0, 1):
+        for offset_x in (-1, 0, 1):
             if offset_x == offset_y:
                 continue
             # Uncomment to include diagonals
@@ -43,6 +45,7 @@ def get_neighbours(p):
             if in_bounds(coord):
                 result.append(coord)
     return result
+
 
 def find_paths_to_end_points(start_paths, value_at_start_points):
     if value_at_start_points == 9:
@@ -57,6 +60,7 @@ def find_paths_to_end_points(start_paths, value_at_start_points):
     if not len(new_start_paths):
         return []
     return find_paths_to_end_points(new_start_paths, value_at_start_points + 1)
+
 
 sum = 0
 
