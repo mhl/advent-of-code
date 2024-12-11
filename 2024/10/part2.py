@@ -1,10 +1,7 @@
 #!/usr/bin/env python3
 
 from collections import defaultdict
-from dataclasses import dataclass
-from functools import lru_cache
 import os
-import re
 import sys
 
 parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
